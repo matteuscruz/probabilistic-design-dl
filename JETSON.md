@@ -1,22 +1,81 @@
-# Venv com Pacotes Globais (Jetson Nano)
+# 🧠 Venv com Pacotes Globais (Jetson Nano)
 
-## Descrição
-Este venv (`venv`) foi configurado para **ter todos os pacotes Python globais disponíveis** sem precisar reinstalá-los.  
-Ele utiliza links simbólicos (`symlinks`) para os diretórios globais de pacotes, garantindo **economia de espaço** e **acesso imediato a todos os pacotes instalados globalmente**.
+## 📌 Visão Geral
+
+Este ambiente virtual (`venv`) foi configurado para **reutilizar todos os pacotes Python já instalados globalmente no sistema**, evitando reinstalações desnecessárias.
+
+A estratégia combina:
+
+- `--system-site-packages` → acesso direto aos pacotes globais  
+- Links simbólicos (`symlinks`) → visibilidade explícita dentro do `venv`  
+
+### ✅ Benefícios
+
+- 🚀 Setup extremamente rápido  
+- 💾 Economia significativa de espaço (essencial no Jetson Nano)  
+- 🔁 Reutilização automática de bibliotecas pesadas (ex: `torch`, `opencv`, `numpy`)  
+- ⚡ Sem necessidade de rebuild ou reinstalação  
 
 ---
 
-## Caminhos Importantes
-- Diretório do projeto: `/home/jetson/Desktop/dev/probabilistic-design-dl`  
-- Venv: `venv`  
-- Diretórios globais de pacotes:
-  - `/usr/local/lib/python3.6/dist-packages` (pip global)
-  - `/usr/lib/python3/dist-packages` (pacotes do sistema)
+## 📁 Estrutura do Ambiente
+
+/home/jetson/Desktop/dev/probabilistic-design-dl
+├── venv/
+├── src/
+├── README.md
 
 ---
 
-## Passo a Passo para Restaurar ou Criar o Venv
+## 📍 Caminhos Importantes
 
-1. **Sair de qualquer venv ativo**:
+- Projeto: /home/jetson/Desktop/dev/probabilistic-design-dl  
+- Venv: venv/  
+- Pip global: /usr/local/lib/python3.6/dist-packages  
+- Sistema: /usr/lib/python3/dist-packages  
+
+---
+
+## ⚙️ Criação do Ambiente
+
 ```bash
-deactivate
+deactivate 2>/dev/null
+cd /home/jetson/Desktop/dev/probabilistic-design-dl
+rm -rf venv
+python3 -m venv --system-site-packages venv
+source venv/bin/activate
+cd venv/lib/python3.6/site-packages
+ln -s /usr/local/lib/python3.6/dist-packages/* .
+ln -s /usr/lib/python3/dist-packages/* .
+cd /home/jetson/Desktop/dev/probabilistic-design-dl
+```
+
+---
+
+## ▶️ Uso
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+## ✅ Teste
+
+```bash
+python -c "import numpy, torch, cv2; print('OK')"
+```
+
+---
+
+## ⚠️ Observações
+
+- Evita duplicação de pacotes pesados
+- Ideal para Jetson Nano
+- Atualizações globais são refletidas automaticamente
+
+---
+
+## 👨‍💻 Autor
+
+Mateus Cruz
