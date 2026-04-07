@@ -124,12 +124,12 @@ data:
   root: data
   mnist_name: MNIST
   mnist_corrupted_name: MNIST_corrupted
+```
 
 Se os arquivos não existirem, o loader tenta provisionar automaticamente:
 
 - `MNIST`: download via `tf.keras.datasets.mnist`
 - `MNIST_corrupted`: gerado automaticamente a partir de `MNIST` com ruído gaussiano
-```
 
 ### Formato esperado
 
@@ -164,7 +164,51 @@ train:
 
 ---
 
-## 7) Testes
+## 7) Artifacts de experimento
+
+A cada execução de pipeline de treino, é criado automaticamente um diretório incremental:
+
+```text
+artifacts/
+  exp0/
+    model/
+    history/
+    figures/
+  exp1/
+    ...
+```
+
+### Conteúdo salvo
+
+- `model/`
+  - Naive Bayes: `naive_bayes.npz`
+  - CNNs: `<model_name>.h5`
+- `history/`
+  - `metadata.json`
+  - métricas e históricos em `.csv`
+- `figures/`
+  - Naive Bayes: plots equivalentes aos usados no notebook
+  - CNNs: `training_history.png`
+
+### Configuração
+
+Nos YAMLs em `config/`, você pode ajustar:
+
+```yaml
+artifacts:
+  enabled: true
+  base_dir: artifacts
+  save_model: true
+  save_history: true
+  save_figures: true
+  naive_binary_epochs: 50
+```
+
+- `naive_binary_epochs` controla o custo das figuras binárias/logísticas do Naive Bayes.
+
+---
+
+## 8) Testes
 
 ```bash
 python -m pytest -q
@@ -178,7 +222,7 @@ python -m pytest -q --cov=src --cov-report=term-missing --cov-fail-under=70
 
 ---
 
-## 8) CI
+## 9) CI
 
 Workflow em `.github/workflows/ci.yml` roda:
 

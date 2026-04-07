@@ -19,3 +19,8 @@ bin
 bin/
 
 *__pycache__/
+
+# Experiment artifacts and generated datasets
+artifacts/
+data/MNIST/
+data/MNIST_corrupted/

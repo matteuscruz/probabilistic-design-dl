@@ -43,6 +43,14 @@ def _write_config(path: Path, model_name: str, data_root: Path):
             "seed": 42,
             "verbose": 0,
         },
+        "artifacts": {
+            "enabled": True,
+            "base_dir": str(path.parent / "artifacts"),
+            "save_model": True,
+            "save_history": True,
+            "save_figures": True,
+            "naive_binary_epochs": 2,
+        },
         "eval": {"metric": "accuracy"},
     }
     path.write_text(yaml.safe_dump(cfg), encoding="utf-8")
@@ -68,3 +76,19 @@ def test_main_runs_all_cnn_model_types(model_name, mnist_data_root, tmp_path):
     assert "accuracy_corrupted" in result
     assert 0.0 <= result["accuracy_test"] <= 1.0
     assert 0.0 <= result["accuracy_corrupted"] <= 1.0
+
+    artifacts_root = tmp_path / "artifacts"
+    experiment_dirs = sorted(
+        path for path in artifacts_root.glob("exp*") if path.is_dir()
+    )
+    assert len(experiment_dirs) == 1
+
+    experiment_dir = experiment_dirs[0]
+    assert (experiment_dir / "model").is_dir()
+    assert (experiment_dir / "history").is_dir()
+    assert (experiment_dir / "figures").is_dir()
+
+    assert any((experiment_dir / "model").glob("*.h5"))
+    assert (experiment_dir / "history" / "training_history.csv").exists()
+    assert (experiment_dir / "history" / "metrics.csv").exists()
+    assert (experiment_dir / "figures" / "training_history.png").exists()

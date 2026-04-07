@@ -36,6 +36,16 @@ class RuntimeConfig:
             "verbose": 0,
         }
     )
+    artifacts: dict = field(
+        default_factory=lambda: {
+            "enabled": True,
+            "base_dir": "artifacts",
+            "save_model": True,
+            "save_history": True,
+            "save_figures": True,
+            "naive_binary_epochs": 50,
+        }
+    )
     eval: dict = field(default_factory=lambda: {"metric": "accuracy"})
 
 
@@ -50,6 +60,14 @@ DEFAULT_CONFIG = {
     },
     "split": {"test_size": 0.2, "random_state": 42, "stratify": True},
     "train": {"epochs": 500, "learning_rate": 0.01, "seed": 42, "verbose": 0},
+    "artifacts": {
+        "enabled": True,
+        "base_dir": "artifacts",
+        "save_model": True,
+        "save_history": True,
+        "save_figures": True,
+        "naive_binary_epochs": 50,
+    },
     "eval": {"metric": "accuracy"},
 }
 

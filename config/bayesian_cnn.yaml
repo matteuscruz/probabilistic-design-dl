@@ -19,5 +19,13 @@ train:
   seed: 42
   verbose: 1
 
+artifacts:
+  enabled: true
+  base_dir: artifacts
+  save_model: true
+  save_history: true
+  save_figures: true
+  naive_binary_epochs: 50
+
 eval:
   metric: accuracy
