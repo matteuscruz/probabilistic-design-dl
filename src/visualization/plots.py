@@ -18,7 +18,9 @@ def get_meshgrid(x0_range, x1_range, num_points=100):
     return np.meshgrid(x0, x1)
 
 
-def contour_plot(x0_range, x1_range, prob_fn, batch_shape, colours, levels=None, num_points=100):
+def contour_plot(
+    x0_range, x1_range, prob_fn, batch_shape, colours, levels=None, num_points=100
+):
     x0, x1 = get_meshgrid(x0_range, x1_range, num_points=num_points)
     points = np.expand_dims(np.array([x0.ravel(), x1.ravel()]).T, 1)
     z = prob_fn(points)

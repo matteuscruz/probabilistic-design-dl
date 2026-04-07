@@ -26,7 +26,9 @@ def test_learn_stdevs_returns_expected_shapes():
     optimiser = tf.keras.optimizers.Adam(learning_rate=0.01)
     epochs = 8
 
-    losses, scales_arr, class_conditionals = learn_stdevs(x, y, scales, optimiser, epochs)
+    losses, scales_arr, class_conditionals = learn_stdevs(
+        x, y, scales, optimiser, epochs
+    )
 
     assert losses.shape == (epochs,)
     assert scales_arr.shape == (epochs, 2)

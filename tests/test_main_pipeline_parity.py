@@ -13,17 +13,72 @@ from src.models.naive_bayes import get_class_conditionals
 from src.models.naive_bayes import predict_class
 from src.training.optim import learn_stdevs
 
-
 SEED = 42
 EXPECTED_MULTICLASS_ACCURACY = 0.7000
 EXPECTED_BINARY_ACCURACY = 1.0000
 EXPECTED_MULTICLASS_PREDICTIONS = [
-    0, 1, 1, 1, 0, 2, 0, 0, 2, 1, 2, 2, 2, 2, 0,
-    0, 0, 1, 1, 1, 0, 2, 2, 1, 1, 2, 2, 0, 2, 0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    2,
+    0,
+    0,
+    2,
+    1,
+    2,
+    2,
+    2,
+    2,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    2,
+    2,
+    1,
+    1,
+    2,
+    2,
+    0,
+    2,
+    0,
 ]
 EXPECTED_BINARY_PREDICTIONS = [
-    0, 1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0,
-    0, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    0,
 ]
 
 
@@ -85,7 +140,9 @@ def test_multiclass_predictions_match_notebook_baseline():
 
 def test_binary_predictions_match_notebook_baseline():
     x_train, x_test, y_train, y_test, _, _ = _build_multiclass_outputs()
-    predictions_binary, accuracy_binary = _build_binary_outputs(x_train, x_test, y_train, y_test)
+    predictions_binary, accuracy_binary = _build_binary_outputs(
+        x_train, x_test, y_train, y_test
+    )
 
     assert accuracy_binary == pytest.approx(EXPECTED_BINARY_ACCURACY, abs=1e-9)
     assert predictions_binary.tolist() == EXPECTED_BINARY_PREDICTIONS

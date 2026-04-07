@@ -17,7 +17,6 @@ def learn_stdevs(x, y, scales, optimiser, epochs):
         raise ValueError("x and y must have the same number of samples")
 
     num_samples = tf.shape(x_tensor)[0]
-    num_features = tf.shape(x_tensor)[1]
     num_classes = tf.reduce_max(y_tensor) + 1
 
     means = []
@@ -34,10 +33,16 @@ def learn_stdevs(x, y, scales, optimiser, epochs):
     for epoch in range(epochs):
         with tf.GradientTape() as tape:
             safe_scales = tf.maximum(scales, 1e-6)
-            tiled_scales = tf.tile(tf.expand_dims(safe_scales, axis=0), [num_classes, 1])
-            class_conditionals = tfd.MultivariateNormalDiag(loc=means, scale_diag=tiled_scales)
+            tiled_scales = tf.tile(
+                tf.expand_dims(safe_scales, axis=0), [num_classes, 1]
+            )
+            class_conditionals = tfd.MultivariateNormalDiag(
+                loc=means, scale_diag=tiled_scales
+            )
 
-            log_likelihoods = class_conditionals.log_prob(tf.expand_dims(x_tensor, axis=1))
+            log_likelihoods = class_conditionals.log_prob(
+                tf.expand_dims(x_tensor, axis=1)
+            )
             indices = tf.stack([tf.range(num_samples), y_tensor], axis=1)
             true_class_log_likelihood = tf.gather_nd(log_likelihoods, indices)
             loss = -tf.reduce_mean(true_class_log_likelihood)

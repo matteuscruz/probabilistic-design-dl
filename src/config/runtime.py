@@ -15,16 +15,41 @@ def _deep_merge(base, override):
 
 @dataclass
 class RuntimeConfig:
-    data: dict = field(default_factory=lambda: {"dataset": "iris", "features": [0, 1]})
-    split: dict = field(default_factory=lambda: {"test_size": 0.2, "random_state": 42, "stratify": True})
-    train: dict = field(default_factory=lambda: {"epochs": 500, "learning_rate": 0.01})
+    model: dict = field(default_factory=lambda: {"name": "naive_bayes"})
+    data: dict = field(
+        default_factory=lambda: {
+            "dataset": "iris",
+            "features": [0, 1],
+            "root": "data",
+            "mnist_name": "MNIST",
+            "mnist_corrupted_name": "MNIST_corrupted",
+        }
+    )
+    split: dict = field(
+        default_factory=lambda: {"test_size": 0.2, "random_state": 42, "stratify": True}
+    )
+    train: dict = field(
+        default_factory=lambda: {
+            "epochs": 500,
+            "learning_rate": 0.01,
+            "seed": 42,
+            "verbose": 0,
+        }
+    )
     eval: dict = field(default_factory=lambda: {"metric": "accuracy"})
 
 
 DEFAULT_CONFIG = {
-    "data": {"dataset": "iris", "features": [0, 1]},
+    "model": {"name": "naive_bayes"},
+    "data": {
+        "dataset": "iris",
+        "features": [0, 1],
+        "root": "data",
+        "mnist_name": "MNIST",
+        "mnist_corrupted_name": "MNIST_corrupted",
+    },
     "split": {"test_size": 0.2, "random_state": 42, "stratify": True},
-    "train": {"epochs": 500, "learning_rate": 0.01},
+    "train": {"epochs": 500, "learning_rate": 0.01, "seed": 42, "verbose": 0},
     "eval": {"metric": "accuracy"},
 }
 

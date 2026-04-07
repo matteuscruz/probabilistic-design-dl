@@ -4,11 +4,15 @@ import numpy as np
 def get_logistic_regression_params(prior, class_conditionals):
     prior_probs = prior.probs_parameter().numpy()
     if prior_probs.shape[0] != 2:
-        raise ValueError("This function expects a binary prior distribution with 2 classes")
+        raise ValueError(
+            "This function expects a binary prior distribution with 2 classes"
+        )
 
     means = class_conditionals.loc.numpy()
     if means.shape[0] != 2:
-        raise ValueError("This function expects binary class-conditionals with 2 classes")
+        raise ValueError(
+            "This function expects binary class-conditionals with 2 classes"
+        )
 
     stds = class_conditionals.stddev().numpy()
     variances = np.square(stds)
