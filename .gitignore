@@ -12,7 +12,6 @@ venv/
 .ipynb_checkpoints/
 **/.ipynb_checkpoints/
 
-# Ignore notebooks by default, but keep notebooks/ tracked
+# Notebooks
+notebooks/
 *.ipynb
-!notebooks/
-!notebooks/**/*.ipynb
