@@ -63,6 +63,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements-dev.txt
 
+      - name: Smoke test all model configs
+        run: |
+          python main.py --config config/naive_bayes.yaml
+          python main.py --config config/cnn_deterministic.yaml
+          python main.py --config config/cnn_probabilistic.yaml
+          python main.py --config config/bayesian_cnn.yaml
+
       - name: Run tests with coverage gate
         run: |
           python -m pytest -q \
