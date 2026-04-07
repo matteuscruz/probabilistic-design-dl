@@ -1,0 +1,9 @@
+numpy
+scipy
+matplotlib
+scikit-learn
+tensorflow
+tensorflow-probability
+tf-keras
+pyyaml
+pytest

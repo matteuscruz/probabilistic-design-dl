@@ -16,14 +16,14 @@ def _deep_merge(base, override):
 @dataclass
 class RuntimeConfig:
     data: dict = field(default_factory=lambda: {"dataset": "iris", "features": [0, 1]})
-    split: dict = field(default_factory=lambda: {"test_size": 0.2, "random_state": None, "stratify": True})
+    split: dict = field(default_factory=lambda: {"test_size": 0.2, "random_state": 42, "stratify": True})
     train: dict = field(default_factory=lambda: {"epochs": 500, "learning_rate": 0.01})
     eval: dict = field(default_factory=lambda: {"metric": "accuracy"})
 
 
 DEFAULT_CONFIG = {
     "data": {"dataset": "iris", "features": [0, 1]},
-    "split": {"test_size": 0.2, "random_state": None, "stratify": True},
+    "split": {"test_size": 0.2, "random_state": 42, "stratify": True},
     "train": {"epochs": 500, "learning_rate": 0.01},
     "eval": {"metric": "accuracy"},
 }
