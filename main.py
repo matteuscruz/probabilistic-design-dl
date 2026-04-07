@@ -1,3 +1,5 @@
+import argparse
+
 from src.config.runtime import load_config
 from src.data.loaders import load_iris_sepal_dataset
 from src.data.split import train_test_split_dataset
@@ -37,7 +39,23 @@ def run(config_path="config/default.yaml"):
 
 
 if __name__ == "__main__":
-    result = run()
+    parser = argparse.ArgumentParser(description="Run probabilistic-design-dl models")
+    parser.add_argument(
+        "config_path",
+        nargs="?",
+        default="config/default.yaml",
+        help="Path to YAML config file",
+    )
+    parser.add_argument(
+        "--config",
+        dest="config_override",
+        default=None,
+        help="Path to YAML config file (overrides positional config_path)",
+    )
+    args = parser.parse_args()
+    config_path = args.config_override or args.config_path
+
+    result = run(config_path=config_path)
     if isinstance(result, dict):
         print(
             f"Model={result['model']} | "

@@ -1,0 +1,23 @@
+model:
+  name: cnn_deterministic
+
+data:
+  dataset: iris
+  features: [0, 1]
+  root: data
+  mnist_name: MNIST
+  mnist_corrupted_name: MNIST_corrupted
+
+split:
+  test_size: 0.2
+  random_state: 42
+  stratify: true
+
+train:
+  epochs: 1
+  learning_rate: 0.001
+  seed: 42
+  verbose: 1
+
+eval:
+  metric: accuracy
