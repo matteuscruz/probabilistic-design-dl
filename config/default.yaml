@@ -1,0 +1,15 @@
+data:
+  dataset: iris
+  features: [0, 1]
+
+split:
+  test_size: 0.2
+  random_state: null
+  stratify: true
+
+train:
+  epochs: 500
+  learning_rate: 0.01
+
+eval:
+  metric: accuracy
