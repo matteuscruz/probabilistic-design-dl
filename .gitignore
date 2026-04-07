@@ -1,0 +1,18 @@
+# Python cache/artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# Ignore notebooks by default, but keep notebooks/ tracked
+*.ipynb
+!notebooks/
+!notebooks/**/*.ipynb
