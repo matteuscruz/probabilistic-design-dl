@@ -86,9 +86,9 @@ def _create_corrupted_mnist_npy(data_root="data"):
     train_noise = rng.normal(loc=0.0, scale=25.0, size=x_train.shape)
     test_noise = rng.normal(loc=0.0, scale=25.0, size=x_test.shape)
 
-    x_train_corrupted = np.clip(x_train.astype(np.float32) + train_noise, 0, 255).astype(
-        np.uint8
-    )
+    x_train_corrupted = np.clip(
+        x_train.astype(np.float32) + train_noise, 0, 255
+    ).astype(np.uint8)
     x_test_corrupted = np.clip(x_test.astype(np.float32) + test_noise, 0, 255).astype(
         np.uint8
     )
