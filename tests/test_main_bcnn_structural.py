@@ -50,6 +50,7 @@ def _write_config(path: Path, model_name: str, data_root: Path):
             "save_history": True,
             "save_figures": True,
             "naive_binary_epochs": 2,
+            "cnn_bayesian_ensemble_size": 5,
         },
         "eval": {"metric": "accuracy"},
     }
@@ -91,4 +92,9 @@ def test_main_runs_all_cnn_model_types(model_name, mnist_data_root, tmp_path):
     assert any((experiment_dir / "model").glob("*.h5"))
     assert (experiment_dir / "history" / "training_history.csv").exists()
     assert (experiment_dir / "history" / "metrics.csv").exists()
+    assert (experiment_dir / "history" / "entropy_summary.json").exists()
     assert (experiment_dir / "figures" / "training_history.png").exists()
+    assert (experiment_dir / "figures" / "02_mnist_samples.png").exists()
+    assert (experiment_dir / "figures" / "03_mnist_corrupted_samples.png").exists()
+    assert (experiment_dir / "figures" / "07_entropy_mnist.png").exists()
+    assert (experiment_dir / "figures" / "08_entropy_mnist_c.png").exists()

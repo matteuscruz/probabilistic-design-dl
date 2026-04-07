@@ -14,6 +14,7 @@ from src.models.cnn_deterministic import get_deterministic_model
 from src.models.cnn_probabilistic import get_probabilistic_model
 from src.models.cnn_probabilistic import nll
 from src.training.experiment_manager import ExperimentManager
+from src.visualization.cnn_artifacts import generate_cnn_experiment_figures
 
 tfd = tfp.distributions
 
@@ -170,6 +171,27 @@ def run_cnn_pipeline(config, experiment_manager=None):
                 dpi=150,
             )
             plt.close(figure)
+
+            entropy_summary = generate_cnn_experiment_figures(
+                model=model,
+                model_name=model_name,
+                x_train=x_train,
+                x_test=x_test,
+                y_test=y_test,
+                x_c_test=x_c_test,
+                y_c_test=y_c_test,
+                figures_dir=experiment_manager.figures_dir,
+                bayesian_ensemble_size=int(
+                    artifacts_cfg.get("cnn_bayesian_ensemble_size", 50)
+                ),
+            )
+
+            if artifacts_cfg.get("save_history", True):
+                experiment_manager.save_json(
+                    "history",
+                    "entropy_summary.json",
+                    entropy_summary,
+                )
 
     return {
         "model": model_name,

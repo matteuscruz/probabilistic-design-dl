@@ -26,6 +26,7 @@ artifacts:
   save_history: true
   save_figures: true
   naive_binary_epochs: 50
+  cnn_bayesian_ensemble_size: 50
 
 eval:
   metric: accuracy

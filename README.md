@@ -188,7 +188,7 @@ artifacts/
   - métricas e históricos em `.csv`
 - `figures/`
   - Naive Bayes: plots equivalentes aos usados no notebook
-  - CNNs: `training_history.png`
+  - CNNs: `training_history.png` + plots do notebook de CNN (amostras, predições e entropia)
 
 ### Configuração
 
@@ -202,9 +202,11 @@ artifacts:
   save_history: true
   save_figures: true
   naive_binary_epochs: 50
+  cnn_bayesian_ensemble_size: 50
 ```
 
 - `naive_binary_epochs` controla o custo das figuras binárias/logísticas do Naive Bayes.
+- `cnn_bayesian_ensemble_size` controla o número de amostras para intervalos preditivos no `bayesian_cnn`.
 
 ---
 

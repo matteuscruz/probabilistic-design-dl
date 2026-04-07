@@ -44,6 +44,7 @@ class RuntimeConfig:
             "save_history": True,
             "save_figures": True,
             "naive_binary_epochs": 50,
+            "cnn_bayesian_ensemble_size": 50,
         }
     )
     eval: dict = field(default_factory=lambda: {"metric": "accuracy"})
@@ -67,6 +68,7 @@ DEFAULT_CONFIG = {
         "save_history": True,
         "save_figures": True,
         "naive_binary_epochs": 50,
+        "cnn_bayesian_ensemble_size": 50,
     },
     "eval": {"metric": "accuracy"},
 }
