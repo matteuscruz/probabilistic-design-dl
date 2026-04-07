@@ -15,3 +15,7 @@ venv/
 # Notebooks
 notebooks/
 *.ipynb
+bin
+bin/
+
+*__pycache__/
